@@ -9,20 +9,23 @@
 
       stdenv.mkDerivation rec {
         name = "helm_sk4zuzu";
-        version = "3.5.3";
 
+        ver = "3.5.3";
         src = fetchurl {
-          url = "https://get.helm.sh/helm-v${version}-linux-amd64.tar.gz";
+          url = "https://get.helm.sh/helm-v${ver}-linux-amd64.tar.gz";
           sha256 = "sha256-IXChpkSp4Lhj8AwXt2HOM9QyPaZPx0Vio6bfKrv2zXA=";
         };
 
         nativeBuildInputs = [ installShellFiles ];
 
+        dontPatch     = true;
+        dontConfigure = true;
+        dontBuild     = true;
+        dontFixup     = true;
+
         installPhase = ''
           install -D helm $out/helm
         '';
-
-        fixupPhase = ":";
       };
   };
 }
